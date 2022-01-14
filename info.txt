@@ -1,0 +1,55 @@
+* divided into 2 directories, one for client and one for smart_contract
+* inside smart_contract, used "npm init -y" . and inside client, below steps
+* used vite instead of create react app. much better https://vitejs.dev/
+* initialized tailwind css  https://tailwindcss.com/docs/guides/create-react-app
+* created components and linked it with App.tsx
+* importing the styles to index.css from https://gist.github.com/adrianhajdin/5f6cc61fa04de7b8fa250eb295db62fd
+* adding images folder from https://drive.google.com/drive/folders/1RG95q8EOEJ8hfw1YhYHaZnvtMUaQ_Im7
+* install dependencies required for the app (react-icons and ethers)
+* filling code for navbar. used many tailwind css classes and react components. states etc
+* filling code for welcome (react and tailwind) ( used ethcard gradient from https://csshero.org/mesher )
+* take common styles variable from gist file above inside welcome.
+* implement loader component which is placed inside welcome.
+* to increase width b/w 2 cols in welcome, we added mf (new tailwind class) by changing the tailwind-config.js file (copying from gist)
+
+DESIGN PART DONE FOR NAVBAR and WELCOME
+---------------------------------
+
+* Now move to the smart contract file and install dependencies.
+* npm install --save-dev hardhat @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers
+* then do "npx hardhat" to generate files.
+* npx hardhat test    // to compile and run the sample-test.js file
+* now create a smart contract Transactions and then inside scripts change things accordingly to run the contract (changed name of script to deploy.js)
+* ropsten faucet to get ethereum for testing. u can google ropsten faucets if anyone of them gets empty (https://faucet.egorfine.com/)
+* add some etherum to your metamask from the above faucet. make sure to change the network to ropsten test network
+* go to https://alchemy.com and create an account and app. then copy the key and go to file hardhat.config.js and start typing
+* use the keys from metamask and alchemy in the hardhat config file.
+* now to deploy, use "npx hardhat run scripts/deploy.js --network ropsten"
+* after you wait for a while, u will get a contract address, copy that to client/src/utils/constants.js 
+* compilations also generate artifacts/contracts/Transactions.sol/Transactions.json   paste the entire file to utils/Transactions.json (entire file)
+* that json contains abi (Contract Application Binary Interface) which we ll use for the communication from outside as well as contract to contract in the ethereum ecosystem
+* import this json file in constants.js file and export that variable
+* some ethereum will be spent for the compilation process.
+* so now we have to link our React application with the smart contracts.
+* create a folder context in client/src // we ll use React Context API which ll connect to the blockchain. (only going to code that, instead of giving logic to all our components)
+* creating TransactionContext.jsx here, and then fill it
+* once you make the TransactionProvider (context API) in TransactionContext.jsx, make sure to import that in main.jsx and wrap it around the return, so that everything inside the app can access it.
+* now you can import it anywhere in the app and use the value, in our case, in Welcome.jsx , where we import Transaction context and useContext for that.
+* add checkwalletconnected function in TransactionContext and connecting it function inside Context, and hide the switch in welcome if connected to a wallet (useState)
+* add more functions in the context and call it in welcome using handleSubmit and others. (handleChange and other States)
+* finish of the sendTransaction function completely and then, just WOOWW, try transfering ethereum, it works perfectly
+
+
+MAJOR BLOCKCHAIN PART OF TRANSACTIONS COMPLETED
+----------------------------------------------
+
+* Services.jsx DONE
+* start the Transactions.jsx file. Make a utils/shortenAddress.js to reuse it
+* continue working on Transactions.jsx 
+* use https://developers.giphy.com and make an API key
+* create a .env file in client (not inside src!!!). api key will be accessible everywhere
+* creating a new hook inside hooks/useFetch.js which will have the logic to fetch the gif based on text
+* complete the transactions.jsx atleast for the dummy giphys available
+* complete the footer design
+* creating getAllTransactions and checkIfTransactionExist in TransactionContext.jsx
+* change the dummy variables in transaction to the real transactions by calling the functions above in transaction.jsx
